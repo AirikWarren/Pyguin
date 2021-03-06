@@ -1,0 +1,29 @@
+{% block navbar %}
+<nav role="navigation" aria-label="main navigation" class="navbar is-dark">
+    <div class="navbar-brand">
+    <a href="https://www.meetup.com/__head__" style="justify-items: center;display: flex;" class="navbar-item" target="_blank">
+        <svg width="112" height="28">
+            <text style="font-size: 18px;font-weight: 700;line-height: 28px;letter-spacing: -0.016em" fill="#3298dc" y="24" x="26">__HEAD__</text>
+        </svg>
+    </a>
+    
+    
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" style="color: #d07c4a;">
+                        Sitemap
+                    </a>
+                    <div class="navbar-dropdown has-background-dark">
+                        {% for title, link in nav_links.items() %}
+                            <a class="navbar-item" href="{{ link }}" style="color: #d07c4a;">
+                                {{ title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        <div class="navbar-end">
+        </div>
+    </nav>
+{% endblock %}

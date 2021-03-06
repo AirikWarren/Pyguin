@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% block title %}
+            {% if title %}
+                <title> {{ title }} </title>
+            {% else %}
+                <title> Placeholder </title>
+            {% endif %}
+        {% endblock %}
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block stylesheet %}
+            <link rel="stylesheet" href="./style/base.css">
+            <link rel="stylesheet" href="./style/{{ title }}.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="grid">
+            {% if nav_links %}
+                <h1 class="banner b-left top-left h-centered"><u><i>2021 Tooling</i></u></h1>
+                <h1 class="banner b-center top-center h-centered"> <u> Pyguin </u> </h1>
+                <h1 class="banner b-right top-right h-centered"><u><i>For 2006 Style</i></u></h1>
+                <nav class="top-center h-centered">
+                {% for title, link in nav_links.items() %}
+                        <button><a href="{{ link }}"> {{ title }} </a></button>
+                {% endfor %}
+                </nav>
+            {% endif %}
+            <div class="mid-center">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
