@@ -32,4 +32,4 @@ if __name__ == '__main__':
     for i in zip(filenames, nav_links):
         f = open(f'./output/{i[0]}', "+w")
         f.write(env.get_template(i[0]).render(title=i[1], nav_links=nav_links))
-        f.close()
+        # f.close()
