@@ -1,38 +1,19 @@
 import click
 import os
-import shutil
 import zipfile
-
-from jinja2.environment import Environment, TemplateModule
-from jinja2.loaders import FileSystemLoader
 
 import requests
 
+from . import render_jinja
+
 @click.group()
 def main():
-    ...
+    pass
 
 @click.command()
-@click.option('--output', default='./output', help='Directory path to output stuff to')
-def create_output_dir(output):
-    '''I ate a piece of cheese. I love how you can eat food'''
-    try:
-        os.mkdir(f'{output}')
-        os.mkdir(f'{output}/style')
-    except FileExistsError:
-        shutil.rmtree(f'{output}')
-        os.mkdir(f'{output}')
-        os.mkdir(f'{output}/style')
+def download_templates():
+    '''Downloads the example templates from Github'''
 
-@click.command()
-@click.option('--templates_dir', default='./templates', help= "Directory to download the boilerplate to")
-def boilerplate(templates_dir):
-    #try:
-    #    os.chdir(templates_dir)
-    #except FileNotFoundError:
-    #    os.mkdir(templates_dir)
-    #    os.chdir(templates_dir)
-    
     r = requests.get('https://github.com/AirikWarren/Pyguin/archive/Templates.zip', stream=True)
     with open('templates.zip', 'wb') as fd:
      for chunk in r.iter_content(chunk_size=128):
@@ -40,7 +21,16 @@ def boilerplate(templates_dir):
     
     with zipfile.ZipFile('templates.zip', 'r') as zip_ref:
         zip_ref.extractall()
+    
+    os.remove('templates.zip')
+
+@click.command()
+@click.argument('template_dir', type=click.Path(exists=True))
+@click.option('--output', default='./output', help='Output director for static site')
+def render_template(template_dir, output):
+    '''Renders a Pyguin template into a static site'''
+    render_jinja.default(template_dir, output)
 
 
-main.add_command(boilerplate)
-main.add_command(create_output_dir)
+main.add_command(download_templates)
+main.add_command(render_template)
