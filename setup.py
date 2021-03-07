@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pyguin-actual-test",
-    version="0.0.3",
+    name="pyguin",
+    version="0.0.1",
     author="Airik Warren",
     author_email="airikwarren@gmail.com",
     description="A minimalistic static site generator intended to be very quick and intuitive to understand and extend",
