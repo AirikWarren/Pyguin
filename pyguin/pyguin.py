@@ -2,6 +2,8 @@ import click
 import os
 import zipfile
 
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+
 import requests
 
 from . import render_jinja
@@ -31,6 +33,16 @@ def render_template(template_dir, output):
     '''Renders a Pyguin template into a static site'''
     render_jinja.default(template_dir, output)
 
+@click.command()
+@click.option('--bind', default="127.0.0.1")
+@click.option('--port', default=8000)
+def run(bind, port):
+    '''starts a local development only server'''
+    print(f'Starting a development server at http://{bind}:{port}')
+    httpd = HTTPServer((bind, int(port)), SimpleHTTPRequestHandler)
+    httpd.serve_forever()
+
 
 main.add_command(download_templates)
 main.add_command(render_template)
+main.add_command(run)

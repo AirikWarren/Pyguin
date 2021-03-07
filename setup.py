@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyguin-actual-test",
-    version="0.0.2",
+    version="0.0.3",
     author="Airik Warren",
     author_email="airikwarren@gmail.com",
     description="A minimalistic static site generator intended to be very quick and intuitive to understand and extend",
@@ -24,7 +24,8 @@ setuptools.setup(
         'console_scripts': [
             'pyguin = pyguin.pyguin:main',
             ],
-        },
+    },
+    install_requires=['Jinja2', 'click', 'requests'],
     packages=setuptools.find_packages(),
     python_requires=">=3.6",
 )
